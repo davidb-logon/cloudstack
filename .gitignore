@@ -80,6 +80,7 @@ debian/files
 debian/cloudstack-*/*
 debian/*.substvars
 debian/*.debhelper
+debian/changelog.20*
 replace.properties.tmp
 build-indep-stamp
 configure-stamp
