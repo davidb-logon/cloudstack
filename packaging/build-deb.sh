@@ -122,7 +122,8 @@ if [ "$USE_TIMESTAMP" == "true" ]; then
     fi
 fi
 
-VERSION=$(head -n1 debian/changelog  |awk -F [\(\)] '{print $2}')
+#VERSION=$(head -n1 debian/changelog  |awk -F [\(\)] '{print $2}') #W2 DB 1
+VERSION=$(head -n1 debian/changelog  |awk -F [\(\)] '{print $2}'|awk -F~ '{print $1}') #W2 DB 1
 DISTCODE=$(lsb_release -sc)
 
 if [ "$USE_TIMESTAMP" == "true" ]; then
