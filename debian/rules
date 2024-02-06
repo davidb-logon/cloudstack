@@ -12,11 +12,31 @@ override_dh_auto_configure:
 	cp packaging/debian/replace.properties replace.properties.tmp
 	echo VERSION=${VERSION} >> replace.properties.tmp
 
+#W2 DB 3
 override_dh_auto_build:
-	mvn clean package -Psystemvm,developer -Dsystemvm \
-	    -Dcs.replace.properties=replace.properties.tmp \
-	    -Dmaven.repo.local=$(HOME)/.m2/repository \
-	     ${ACS_BUILD_OPTS}
+	@echo "Starting build process..."
+	if [ "$$DEBUG" = "1" ]; then \
+		echo "DEBUG mode is enabled. Running Maven with additional options..."; \
+		mvn clean package -Psystemvm,developer,generate-sources -Dsystemvm -DskipTests \
+		-Dcs.replace.properties=replace.properties.tmp \
+		-Dmaven.repo.local=$(HOME)/.m2/repository \
+		${ACS_BUILD_OPTS}; \
+	else \
+		echo "DEBUG mode is not enabled. Running standard Maven build..."; \
+		mvn clean package -Psystemvm,developer -Dsystemvm \
+		-Dcs.replace.properties=replace.properties.tmp \
+		-Dmaven.repo.local=$(HOME)/.m2/repository \
+		${ACS_BUILD_OPTS}; \
+	fi
+	@echo "Build process completed."
+
+
+#W2 DB 3
+# override_dh_auto_build:
+# 	mvn clean package -Psystemvm,developer -Dsystemvm \
+# 	    -Dcs.replace.properties=replace.properties.tmp \
+# 	    -Dmaven.repo.local=$(HOME)/.m2/repository \
+# 	     ${ACS_BUILD_OPTS}
 
 override_dh_auto_clean:
 	dh_auto_clean
