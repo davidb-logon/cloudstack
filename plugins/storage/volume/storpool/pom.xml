@@ -113,6 +113,7 @@
                     </execution>
                 </executions>
                 <configuration>
+                    <useNativeGit>true</useNativeGit>
                     <skip>${storpool.skip.git.properties}</skip>
                     <dotGitDirectory>${project.basedir}/.git</dotGitDirectory>
                     <prefix>git</prefix>
